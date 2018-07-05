@@ -53,9 +53,18 @@ public class BluetoothClient {
         connectionListeners.remove(listener);
     }
 
-    public void initialize(Context c, Activity activity){
-        BridgefyUtils.enableBluetooth(c);
-        Bridgefy.initialize(c, new RegistrationListener() {
+    /**
+     * Initialize and tries to start the BluetoothClient.
+     * If start fails due to permissions having to be requested
+     * {@link Activity#onRequestPermissionsResult(int, String[], int[])} will be called with a request code of 0 on the calling activity
+     * In that method call {@link #startScanning(Activity)} to start the BluetoothClient
+     *
+     * @param context  the context of the calling activity
+     * @param activity the calling activity
+     */
+    public void initialize(Context context, Activity activity) {
+        BridgefyUtils.enableBluetooth(context);
+        Bridgefy.initialize(context, new RegistrationListener() {
             @Override
             public void onRegistrationSuccessful(BridgefyClient bridgefyClient) {
                 startScanning(activity);
@@ -71,17 +80,21 @@ public class BluetoothClient {
 
     public void sendMessage(ChatMessage chatMessage){
         if(isStarted) Bridgefy.sendBroadcastMessage(chatMessage.getMap());
-        chatMessageListeners.forEach(listener -> listener.onChatMessageRecieved(chatMessage));
+        chatMessageListeners.forEach(listener -> listener.onChatMessageReceived(chatMessage));
     }
 
 
-
+    /**
+     * Should only be called if starting failed due to permissions needing to be requested
+     *
+     * @param activity the calling activity
+     */
     public void startScanning(Activity activity){
         Bridgefy.start(new MessageListener() {
             @Override
             public void onMessageReceived(Message message) {
                 ChatMessage chatMessage = new ChatMessage(message);
-                chatMessageListeners.forEach(listener -> listener.onChatMessageRecieved(chatMessage));
+                chatMessageListeners.forEach(listener -> listener.onChatMessageReceived(chatMessage));
             }
 
             @Override
@@ -107,7 +120,7 @@ public class BluetoothClient {
             @Override
             public void onBroadcastMessageReceived(Message message) {
                 ChatMessage chatMessage = new ChatMessage(message);
-                chatMessageListeners.forEach(listener -> listener.onChatMessageRecieved(chatMessage));
+                chatMessageListeners.forEach(listener -> listener.onChatMessageReceived(chatMessage));
             }
 
         }, new StateListener() {

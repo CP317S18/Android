@@ -1,5 +1,6 @@
 package com.shout.android;
 
+import android.support.annotation.NonNull;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
@@ -37,15 +38,16 @@ public class MyMessageRecyclerViewAdapter extends RecyclerView.Adapter<MyMessage
         });
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_message, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.mItem = buffer.get(position);
         holder.mContentView.setText(buffer.get(position).getContent());
 
@@ -57,16 +59,16 @@ public class MyMessageRecyclerViewAdapter extends RecyclerView.Adapter<MyMessage
     }
 
     @Override
-    public void onChatMessageRecieved(ChatMessage m) {
+    public void onChatMessageReceived(ChatMessage m) {
         buffer.add(m);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mContentView;
-        public ChatMessage mItem;
+        final View mView;
+        final TextView mContentView;
+        ChatMessage mItem;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
             mContentView = view.findViewById(R.id.content);

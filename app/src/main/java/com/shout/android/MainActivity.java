@@ -16,7 +16,7 @@ import com.shout.android.core.BluetoothClient;
 import com.shout.android.core.ConnectionListener;
 
 import java.util.Date;
-
+// This is my change
 public class MainActivity extends AppCompatActivity implements ConnectionListener {
 
     private final BluetoothClient bluetoothClient =

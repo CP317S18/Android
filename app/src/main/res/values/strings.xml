@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">android</string>
+    <string name="message_input_prompt">Enter Message</string>
+</resources>

@@ -5,12 +5,12 @@ public interface ConnectionListener {
     /**
      * Called when a device is connected
      */
-    void deviceConnected();
+    void deviceConnected(String username, long timestamp, String userID);
 
     /**
      * Called when a device disconnects or is lost
      */
-    void deviceLost();
+    void deviceLost(String username, long timestamp, String userID);
 
     /**
      * @param count how many devices are currently connected

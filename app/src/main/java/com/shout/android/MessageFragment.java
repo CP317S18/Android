@@ -24,10 +24,6 @@ public class MessageFragment extends Fragment {
     public MessageFragment() {
     }
 
-    public MyMessageRecyclerViewAdapter getAdapter() {
-        return adapter;
-    }
-
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static MessageFragment newInstance(int columnCount) {
@@ -56,12 +52,20 @@ public class MessageFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
+            LinearLayoutManager linearLayout = new LinearLayoutManager(context);
+            linearLayout.setReverseLayout(true);
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setLayoutManager(linearLayout);
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             adapter = new MyMessageRecyclerViewAdapter();
+            adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onItemRangeInserted(int positionStart, int itemCount) {
+                    linearLayout.scrollToPosition(0);
+                }
+            });
             recyclerView.setAdapter(adapter);
         }
         return view;

@@ -11,19 +11,21 @@ import android.widget.TextView;
 
 import com.shout.android.core.BluetoothClient;
 import com.shout.android.core.ChatMessageListener;
+import com.shout.android.core.ConnectionListener;
 
 
-public class MyMessageRecyclerViewAdapter extends RecyclerView.Adapter<MyMessageRecyclerViewAdapter.ViewHolder> implements ChatMessageListener {
+public class MyMessageRecyclerViewAdapter extends RecyclerView.Adapter<MyMessageRecyclerViewAdapter.ViewHolder> implements ConnectionListener, ChatMessageListener {
 
     private final SortedList<ChatMessage> buffer;
 
 
     MyMessageRecyclerViewAdapter() {
         BluetoothClient.getINSTANCE().registerChatMessageListener(this);
+        BluetoothClient.getINSTANCE().registerConnectionListener(this);
         buffer = new SortedList<>(ChatMessage.class, new SortedListAdapterCallback<ChatMessage>(this) {
             @Override
             public int compare(ChatMessage o1, ChatMessage o2) {
-                return (int)(o1.getTimestamp()-o2.getTimestamp());
+                return (int) (o2.getTimestamp() - o1.getTimestamp());
             }
 
             @Override
@@ -50,7 +52,8 @@ public class MyMessageRecyclerViewAdapter extends RecyclerView.Adapter<MyMessage
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.mItem = buffer.get(position);
         holder.mContentView.setText(buffer.get(position).getContent());
-
+        holder.mUsernameView.setText(buffer.get(position).getUsername());
+        holder.mUsernameView.setTextColor(buffer.get(position).getColor());
     }
 
     @Override
@@ -63,15 +66,32 @@ public class MyMessageRecyclerViewAdapter extends RecyclerView.Adapter<MyMessage
         buffer.add(m);
     }
 
+    @Override
+    public void deviceConnected(String username, long timestamp, String userID) {
+        buffer.add(new ChatMessage("connected", username, timestamp, userID));
+    }
+
+    @Override
+    public void deviceLost(String username, long timestamp, String userID) {
+        buffer.add(new ChatMessage("disconnected", username, timestamp, userID));
+    }
+
+    @Override
+    public void connectedDeviceCountChanged(int count) {
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         final TextView mContentView;
+        final TextView mUsernameView;
         ChatMessage mItem;
 
         ViewHolder(View view) {
             super(view);
             mView = view;
             mContentView = view.findViewById(R.id.content);
+            mUsernameView = view.findViewById(R.id.username);
         }
 
         @Override

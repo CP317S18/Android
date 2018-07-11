@@ -5,7 +5,7 @@
     <string name="title_activity_login">Start Shouting</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_username">Username</string>
+    <string name="prompt_username">Name</string>
     <string name="action_username_input">Start Shouting</string>
     <string name="people_shouting_template">%1$d people shouting</string>
     <string name="person_shouting_template">1 person shouting</string>

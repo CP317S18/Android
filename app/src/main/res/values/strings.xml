@@ -1,4 +1,15 @@
 <resources>
-    <string name="app_name">android</string>
+    <string name="app_name">Shout</string>
     <string name="message_input_prompt">Enter Message</string>
+    <string name="message_line_separator">:</string>
+    <string name="title_activity_login">Start Shouting</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_username">Username</string>
+    <string name="action_username_input">Start Shouting</string>
+    <string name="people_shouting_template">%1$d people shouting</string>
+    <string name="person_shouting_template">1 person shouting</string>
+    <string name="CHANNEL_ID">com.shout.android.notifications</string>
+    <string name="channel_description">Shout Notifications</string>
+    <string name="channel_name">Shout Notifications</string>
 </resources>

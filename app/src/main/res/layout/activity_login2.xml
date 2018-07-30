@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login2Activity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/background">
+
+
+    </RelativeLayout>
+
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="102dp"
+        android:ems="10"
+        android:hint="@string/prompt_username2"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textStyle="normal" />
+
+    <TextView
+        android:layout_width="206dp"
+        android:layout_height="27dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="154dp"
+        android:fontFamily="@font/Open Sans"
+
+        android:text="@string/person_shouting_template_nearby"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+
+
+    <TextView
+        android:id="@+id/numPeopleShouting"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="192dp"
+        android:fontFamily="@font/Open Sans"
+        android:text="@string/person_shouting_template2"
+        android:textAlignment="center"
+        android:textColor="@color/loginNumber"
+        android:textSize ="90dp" />
+
+    <Button
+        style="?android:textAppearanceSmall"
+        android:layout_width="237dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="34dp"
+        android:layout_marginStart="72dp"
+        android:background="@color/background"
+        android:fontFamily="@font/Open Sans"
+        android:text="@string/chat_enter"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="103dp"
+        android:src="@drawable/homeLogo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="273dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        android:text="By continuing you agree to our privacy policy and terms of service"
+        android:textColor="@color/fadedText"
+        android:textAlignment="center"
+        android:textSize="8sp" />
+
+</RelativeLayout>

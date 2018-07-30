@@ -6,10 +6,16 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
     private final BluetoothClient bluetoothClient =
             BluetoothClient.getINSTANCE();
     private TextView numPeopleShouting;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -38,8 +45,16 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         ProcessLifecycleOwner.get().getLifecycle().addObserver(BluetoothClient.getINSTANCE().getForegroundBackgroundListener());
         BluetoothClient.getINSTANCE().registerConnectionListener(this);
         setContentView(R.layout.activity_main);
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
+
         setSupportActionBar(myToolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.img_shape);
+
         myToolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.setUsername) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -57,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
             }
             return false;
         });
+
         bluetoothClient.initialize(this,MainActivity.this);
         EditText editText = findViewById(R.id.editText);
         editText.setOnEditorActionListener((v, actionId, event) -> {
@@ -79,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         if (message != null) {
             BluetoothClient.getINSTANCE().setUsername(message);
             BluetoothClient.getINSTANCE().connect();
+            setUserInNavigation(message);
             return;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -91,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         builder.setPositiveButton("OK", (dialog, which) -> {
             BluetoothClient.getINSTANCE().setUsername(input.getText().toString());
             BluetoothClient.getINSTANCE().connect();
+            setUserInNavigation(input.getText().toString());
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> {
             dialog.cancel();
@@ -98,6 +116,23 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         });
 
         builder.show();
+    }
+
+    private void setUserInNavigation(String Name){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.textUserName);
+        navUsername.setText(Name);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

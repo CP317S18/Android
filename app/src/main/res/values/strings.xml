@@ -4,8 +4,13 @@
     <string name="message_line_separator">:</string>
     <string name="title_activity_login">Start Shouting</string>
 
+    <!-- Strings on opening screen -->
+    <string name="opening_text">Chat Anonymously With People Nearby</string>
+    <string name="opening_bluetooth_text">Turn on Bluetooth</string>
+    <string name="opening_start_button">Get Started</string>
+
     <!-- Strings related to login -->
-    <string name="prompt_username">Username</string>
+    <string name="prompt_username">Enter Name</string>
     <string name="action_username_input">Start Shouting</string>
     <string name="people_shouting_template">%1$d people shouting</string>
     <string name="person_shouting_template">1 person shouting</string>
@@ -18,4 +23,12 @@
     <string name="notification">Notification</string>
     <string name="report_bugs">Report Bugs</string>
     <string name="about_shout">About Shout</string>
+
+    <!-- Strings related to login2 -->
+    <string name="prompt_username2">username</string>
+    <string name="people_shouting_template2">%1$d</string>
+    <string name="person_shouting_template2">1</string>
+    <string name="person_shouting_template_nearby">People shouting nearby</string>
+    <string name="chat_enter">Enter Chat</string>
+
 </resources>

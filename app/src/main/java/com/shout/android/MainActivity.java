@@ -29,7 +29,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements ConnectionListener {
 
     private final BluetoothClient bluetoothClient =
-            BluetoothClient.getINSTANCE();
+            BluetoothClient.getInstance();
     private TextView numPeopleShouting;
     private DrawerLayout mDrawerLayout;
 
@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ProcessLifecycleOwner.get().getLifecycle().addObserver(BluetoothClient.getINSTANCE().getForegroundBackgroundListener());
-        BluetoothClient.getINSTANCE().registerConnectionListener(this);
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(BluetoothClient.getInstance().getForegroundBackgroundListener());
+        BluetoothClient.getInstance().registerConnectionListener(this);
         setContentView(R.layout.activity_main);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -64,10 +64,12 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
                 builder.setView(input);
 
+
                 builder.setPositiveButton("OK", (dialog, which) -> {
-                    BluetoothClient.getINSTANCE().setUsername(input.getText().toString());
+                    BluetoothClient.getInstance().setUsername(input.getText().toString());
                     setUserInNavigation(input.getText().toString());
                 });
+
                 builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
                 builder.show();
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
                     builder.setView(input);
 
                     builder.setPositiveButton("OK", (dialog, which) -> {
-                        BluetoothClient.getINSTANCE().setUsername(input.getText().toString());
+                        BluetoothClient.getInstance().setUsername(input.getText().toString());
                         setUserInNavigation(input.getText().toString());
                     });
                     builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
@@ -108,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
                 default:
                     return false;
             }
-            actionbar.invalidateOptionsMenu();
             // Add code here to update the UI based on the item selected
             // For example, swap UI fragments here
 
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         EditText editText = findViewById(R.id.editText);
         editText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND) {
-                ChatMessage cm = new ChatMessage(v.getText().toString(), BluetoothClient.getINSTANCE().getUsername(), new Date().getTime(), BluetoothClient.getINSTANCE().getUserID());
+                ChatMessage cm = new ChatMessage(v.getText().toString(), BluetoothClient.getInstance().getUsername(), new Date().getTime(), BluetoothClient.getInstance().getUserID());
                 bluetoothClient.sendMessage(cm);
                 v.setText("");
                 return true;
@@ -134,10 +135,10 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
     private void initUsername() {
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra(LoginActivity.USERNAME);
+        String message = intent.getStringExtra(LoginActivity.USERNAME_ID_STRING);
         if (message != null) {
-            BluetoothClient.getINSTANCE().setUsername(message);
-            BluetoothClient.getINSTANCE().connect();
+            BluetoothClient.getInstance().setUsername(message);
+            BluetoothClient.getInstance().connect();
             setUserInNavigation(message);
             return;
         }
@@ -149,8 +150,8 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         builder.setView(input);
 
         builder.setPositiveButton("OK", (dialog, which) -> {
-            BluetoothClient.getINSTANCE().setUsername(input.getText().toString());
-            BluetoothClient.getINSTANCE().connect();
+            BluetoothClient.getInstance().setUsername(input.getText().toString());
+            BluetoothClient.getInstance().connect();
             setUserInNavigation(input.getText().toString());
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> {

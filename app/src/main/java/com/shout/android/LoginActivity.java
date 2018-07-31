@@ -10,10 +10,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.shout.android.core.BluetoothClient;
-
 public class LoginActivity extends AppCompatActivity {
-    public static final String USERNAME = "com.shout.android.USERNAME";
+    public static final String USERNAME_ID_STRING = "com.shout.android.USERNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,24 +53,14 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private static final int MY_REQUEST_CODE = 0xe110; // Or whatever number you want
-// ensure it's unique compared to other activity request codes you use
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == MY_REQUEST_CODE)
-            BluetoothClient.getINSTANCE().disconnect();
-    }
 
     private void joinChat() {
         Intent intent = new Intent(this, MainActivity.class);
         EditText editText = findViewById(R.id.usernameInput);
         String username = editText.getText().toString();
         if (username.length() > 0) {
-            intent.putExtra(USERNAME, username);
-            startActivityForResult(intent, MY_REQUEST_CODE);
+            intent.putExtra(USERNAME_ID_STRING, username);
+            startActivity(intent);
         }
 
     }

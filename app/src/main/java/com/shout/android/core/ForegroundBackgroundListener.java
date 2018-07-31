@@ -9,7 +9,7 @@ class ForegroundBackgroundListener implements LifecycleObserver {
     private boolean state = false;
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    public void startSomething() {
+    public void setForeground() {
         state = true;
     }
 
@@ -18,7 +18,7 @@ class ForegroundBackgroundListener implements LifecycleObserver {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    public void stopSomething() {
+    public void setBackground() {
         state = false;
     }
 }

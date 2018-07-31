@@ -17,10 +17,10 @@ import com.shout.android.core.BluetoothClient;
 import com.shout.android.core.ConnectionListener;
 
 public class LoginActivity extends AppCompatActivity implements ConnectionListener{
-    public static final String USERNAME = "com.shout.android.USERNAME";
+    public static final String USERNAME_ID_STRING = "com.shout.android.USERNAME";
 
     TextView numPeopleShouting;
-    BluetoothClient bluetoothClient = BluetoothClient.getINSTANCE();
+    BluetoothClient bluetoothClient = BluetoothClient.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

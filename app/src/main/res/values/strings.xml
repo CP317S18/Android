@@ -18,6 +18,11 @@
     <string name="channel_description">Shout Notifications</string>
     <string name="channel_name">Shout Notifications</string>
 
+    <!-- Strings related to hamburger menu -->
+    <string name="change_username">Change Username</string>
+    <string name="notification">Notification</string>
+    <string name="report_bugs">Report Bugs</string>
+    <string name="about_shout">About Shout</string>
 
     <!-- Strings related to login2 -->
     <string name="prompt_username2">username</string>

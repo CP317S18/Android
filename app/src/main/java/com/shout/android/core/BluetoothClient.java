@@ -21,14 +21,12 @@ import com.bridgefy.sdk.client.MessageListener;
 import com.bridgefy.sdk.client.RegistrationListener;
 import com.bridgefy.sdk.client.Session;
 import com.bridgefy.sdk.client.StateListener;
-import com.bridgefy.sdk.framework.exceptions.MessageException;
 import com.shout.android.ChatMessage;
 import com.shout.android.R;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.UUID;
 
 public class BluetoothClient {
 
@@ -43,7 +41,7 @@ public class BluetoothClient {
     private static final BluetoothClient INSTANCE = new BluetoothClient();
     private ForegroundBackgroundListener foregroundBackgroundListener;
 
-    public static BluetoothClient getINSTANCE() {
+    public static BluetoothClient getInstance() {
         return INSTANCE;
     }
 
@@ -115,6 +113,9 @@ public class BluetoothClient {
         return username;
     }
 
+    /**
+     * Connect client to mesh
+     */
     public void connect() {
         isConnected = true;
         HashMap<String, Object> map = new HashMap<>();
@@ -124,6 +125,9 @@ public class BluetoothClient {
         deviceMap.forEach((id, device) -> device.sendMessage(map));
     }
 
+    /**
+     * Disconnect client from mesh
+     */
     public void disconnect() {
         isConnected = true;
         HashMap<String, Object> map = new HashMap<>();
@@ -133,7 +137,11 @@ public class BluetoothClient {
         deviceMap.forEach((id, device) -> device.sendMessage(map));
     }
 
-
+    /**
+     * Send chatMessage to all connected devices
+     *
+     * @param chatMessage the message to be sent
+     */
     public void sendMessage(ChatMessage chatMessage){
         if (isStarted && isConnected) {
             deviceMap.forEach((id, device) -> {
@@ -186,26 +194,6 @@ public class BluetoothClient {
                         connectionListeners.forEach(listener -> listener.deviceLost((String) message.getContent().get("username"), message.getDateSent(), message.getSenderId()));
                         break;
                 }
-
-            }
-
-            @Override
-            public void onMessageDataProgress(UUID message, long progress, long fullSize) {
-                super.onMessageDataProgress(message, progress, fullSize);
-            }
-
-            @Override
-            public void onMessageReceivedException(String sender, MessageException e) {
-                super.onMessageReceivedException(sender, e);
-            }
-
-            @Override
-            public void onMessageFailed(Message message, MessageException e) {
-                super.onMessageFailed(message, e);
-            }
-
-            @Override
-            public void onBroadcastMessageReceived(Message message) {
 
             }
 

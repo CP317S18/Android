@@ -64,7 +64,10 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
                 builder.setView(input);
 
-                builder.setPositiveButton("OK", (dialog, which) -> BluetoothClient.getINSTANCE().setUsername(input.getText().toString()));
+                builder.setPositiveButton("OK", (dialog, which) -> {
+                    BluetoothClient.getINSTANCE().setUsername(input.getText().toString());
+                    setUserInNavigation(input.getText().toString());
+                });
                 builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
                 builder.show();
@@ -72,6 +75,46 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
             }
             return false;
         });
+        //Listener for navigation events
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(menuItem->  {
+            // set item as selected to persist highlight
+            menuItem.setChecked(true);
+            // close drawer when item is tapped
+            mDrawerLayout.closeDrawers();
+            switch (menuItem.getItemId()){
+                case R.id.nav_username:
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Set Username");
+
+                    final EditText input = new EditText(this);
+                    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
+                    builder.setView(input);
+
+                    builder.setPositiveButton("OK", (dialog, which) -> {
+                        BluetoothClient.getINSTANCE().setUsername(input.getText().toString());
+                        setUserInNavigation(input.getText().toString());
+                    });
+                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+                    builder.show();
+                    break;
+                case R.id.nav_notification:
+                    break;
+                case R.id.nav_bugs:
+                    break;
+                case R.id.nav_about:
+                    break;
+                default:
+                    return false;
+            }
+            actionbar.invalidateOptionsMenu();
+            // Add code here to update the UI based on the item selected
+            // For example, swap UI fragments here
+
+            return true;
+        });
+
 
         bluetoothClient.initialize(this,MainActivity.this);
         EditText editText = findViewById(R.id.editText);

@@ -4,6 +4,12 @@
     <string name="message_line_separator">:</string>
     <string name="title_activity_login">Start Shouting</string>
 
+    <!--Bug report strings -->
+    <string name="bug_report_header">Submit a Bug</string>
+    <string name="bug_report_field">Please describe your problem: </string>
+    <string name="bug_report_button">Submit</string>
+    <string name="bug_report_input">Input bug here: </string>
+
     <!-- Strings related to login -->
     <string name="prompt_username">Username</string>
     <string name="action_username_input">Start Shouting</string>
@@ -12,4 +18,5 @@
     <string name="CHANNEL_ID">com.shout.android.notifications</string>
     <string name="channel_description">Shout Notifications</string>
     <string name="channel_name">Shout Notifications</string>
+
 </resources>

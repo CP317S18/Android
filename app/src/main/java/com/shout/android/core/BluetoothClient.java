@@ -13,7 +13,6 @@ import com.bridgefy.sdk.client.BFEnergyProfile;
 import com.bridgefy.sdk.client.BFEngineProfile;
 import com.bridgefy.sdk.client.Bridgefy;
 import com.bridgefy.sdk.client.BridgefyClient;
-import com.bridgefy.sdk.client.BridgefyUtils;
 import com.bridgefy.sdk.client.Config;
 import com.bridgefy.sdk.client.Device;
 import com.bridgefy.sdk.client.Message;
@@ -90,7 +89,6 @@ public class BluetoothClient {
      * @param activity the calling activity
      */
     public void initialize(Context context, Activity activity) {
-        BridgefyUtils.enableBluetooth(context);
         Bridgefy.initialize(context, new RegistrationListener() {
             @Override
             public void onRegistrationSuccessful(BridgefyClient bridgefyClient) {

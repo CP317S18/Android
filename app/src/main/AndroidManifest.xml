@@ -23,12 +23,16 @@
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize" />
 
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="orientation|screenSize" />
+
         <meta-data
             android:name="com.bridgefy.sdk.API_KEY"
             android:value="ec174e51-a4ab-4e01-9908-fe53b2833622" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".OpeningScreen"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

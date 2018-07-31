@@ -3,6 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorBackground">#2F80ED</color>
+    <color name="colorText">#F2F2F2</color>
+    <color name="colorScrollBackground">#C4C4C4</color>
+    <color name="colorScrollBar">#8D8D8D</color>
+    <color name="colorChatStatusBarBackground">#C8C7CC</color>
+    <color name="colorSettingsBackground">#F6F6F6</color>
+    <color name="colorChatInterfaceBackground">#FFFFFF</color>
+    <color name="background">#007AFF</color>
+    <color name="loginNumber">#5AC8FA</color>
+    <color name="white">#F2F2F2</color>
+    <color name="fadedText">#BDBDBD</color>
+    <color name="colorWhite">#F2F2F2</color>
+    <color name="colorBackground">#007AFF</color>
+
 </resources>

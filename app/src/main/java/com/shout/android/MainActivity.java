@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
             }
             return false;
         });
-        bluetoothClient.initialize(this,MainActivity.this);
+
         EditText editText = findViewById(R.id.editText);
         editText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND) {
@@ -100,18 +100,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         builder.show();
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // Start Bridgefy
-            bluetoothClient.startScanning(MainActivity.this);
-
-        } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            Toast.makeText(this, "Location permissions needed to start peers discovery.", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-    }
 
     @Override
     public void deviceConnected(String username, long timestamp, String userID) {

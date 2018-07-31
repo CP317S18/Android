@@ -12,4 +12,13 @@
     <string name="CHANNEL_ID">com.shout.android.notifications</string>
     <string name="channel_description">Shout Notifications</string>
     <string name="channel_name">Shout Notifications</string>
+
+
+    <!-- Strings related to login2 -->
+    <string name="prompt_username2">username</string>
+    <string name="people_shouting_template2">%1$d</string>
+    <string name="person_shouting_template2">1</string>
+    <string name="person_shouting_template_nearby">People shouting nearby</string>
+    <string name="chat_enter">Enter Chat</string>
+
 </resources>

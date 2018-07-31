@@ -3,21 +3,31 @@ package com.shout.android;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.shout.android.core.BluetoothClient;
+import com.shout.android.core.ConnectionListener;
 
-public class LoginActivity extends AppCompatActivity {
-    public static final String USERNAME_ID_STRING = "com.shout.android.USERNAME";
+public class LoginActivity extends AppCompatActivity implements ConnectionListener{
+    public static final String USERNAME = "com.shout.android.USERNAME";
 
+    TextView numPeopleShouting;
+    BluetoothClient bluetoothClient = BluetoothClient.getINSTANCE();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createNotificationChannel();
         setContentView(R.layout.activity_login);
+        bluetoothClient.registerConnectionListener(this);
+        bluetoothClient.initialize(this,LoginActivity.this);
         // Set up the login form.
         EditText editText = findViewById(R.id.usernameInput);
         editText.setOnEditorActionListener((textView, id, keyEvent) -> {
@@ -27,12 +37,24 @@ public class LoginActivity extends AppCompatActivity {
             }
             return false;
         });
-
+        numPeopleShouting = findViewById(R.id.numPeopleShouting);
         Button mEmailSignInButton = findViewById(R.id.join_button);
         mEmailSignInButton.setOnClickListener(view -> joinChat());
 
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Start Bridgefy
+            bluetoothClient.startScanning(LoginActivity.this);
+
+        } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+            Toast.makeText(this, "Location permissions needed to start peers discovery.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
 
     private void createNotificationChannel() {
         String channel_name = getString(R.string.channel_name);
@@ -66,5 +88,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void deviceConnected(String username, long timestamp, String userID) {
+
+    }
+
+    @Override
+    public void deviceLost(String username, long timestamp, String userID) {
+
+    }
+
+    @Override
+    public void connectedDeviceCountChanged(int count) {
+        numPeopleShouting.setText(""+count);
+    }
 }
 

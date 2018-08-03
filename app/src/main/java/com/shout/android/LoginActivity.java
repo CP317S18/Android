@@ -2,6 +2,7 @@ package com.shout.android;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -13,12 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.shout.android.core.BluetoothClient;
 import com.shout.android.core.ConnectionListener;
 
 public class LoginActivity extends AppCompatActivity implements ConnectionListener{
     public static final String USERNAME_ID_STRING = "com.shout.android.USERNAME";
-
+    public static final int START_BLUETOOTH = 99;
+    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     TextView numPeopleShouting;
     BluetoothClient bluetoothClient = BluetoothClient.getInstance();
     @Override
@@ -26,8 +29,24 @@ public class LoginActivity extends AppCompatActivity implements ConnectionListen
         super.onCreate(savedInstanceState);
         createNotificationChannel();
         setContentView(R.layout.activity_login);
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, "This app requires bluetooth", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            if (!mBluetoothAdapter.isEnabled()) {
+                Intent intent = new Intent(this, OpeningScreen.class);
+                this.startActivityForResult(intent, START_BLUETOOTH);
+            }
+        }
+        initialize();
+
+
+    }
+
+    private void initialize() {
         bluetoothClient.registerConnectionListener(this);
-        bluetoothClient.initialize(this,LoginActivity.this);
+        bluetoothClient.initialize(this, LoginActivity.this);
         // Set up the login form.
         EditText editText = findViewById(R.id.usernameInput);
         editText.setOnEditorActionListener((textView, id, keyEvent) -> {
@@ -40,7 +59,6 @@ public class LoginActivity extends AppCompatActivity implements ConnectionListen
         numPeopleShouting = findViewById(R.id.numPeopleShouting);
         Button mEmailSignInButton = findViewById(R.id.join_button);
         mEmailSignInButton.setOnClickListener(view -> joinChat());
-
     }
 
 
@@ -52,6 +70,16 @@ public class LoginActivity extends AppCompatActivity implements ConnectionListen
 
         } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
             Toast.makeText(this, "Location permissions needed to start peers discovery.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == START_BLUETOOTH && mBluetoothAdapter.isEnabled()) {
+            initialize();
+        } else {
+            Toast.makeText(this, "This app requires bluetooth", Toast.LENGTH_SHORT).show();
             finish();
         }
     }

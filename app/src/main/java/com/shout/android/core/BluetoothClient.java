@@ -168,7 +168,7 @@ public class BluetoothClient {
                 MessageType type = MessageType.getType(((Number) message.getContent().get("type")).intValue());
                 switch (type) {
                     case ChatMessage:
-                        ChatMessage chatMessage = new ChatMessage(message);
+                        ChatMessage chatMessage = new ChatMessage(message, type);
                         chatMessageListeners.forEach(listener -> listener.onChatMessageReceived(chatMessage));
                         if (foregroundBackgroundListener.isBackground()) {
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(activity.getApplicationContext(), "com.shout.android.notifications")

@@ -2,7 +2,7 @@
     <string name="app_name">Shout</string>
     <string name="message_input_prompt">Enter Message</string>
     <string name="message_line_separator">:</string>
-    <string name="title_activity_login">Start Shouting</string>
+    <string name="title_activity_login">Shout!</string>
 
     <!-- Strings on opening screen -->
     <string name="opening_text">Chat Anonymously With People Nearby</string>

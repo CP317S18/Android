@@ -12,9 +12,10 @@ import android.widget.TextView;
 import com.shout.android.core.BluetoothClient;
 import com.shout.android.core.ChatMessageListener;
 import com.shout.android.core.ConnectionListener;
+import com.shout.android.core.MessageType;
 
 
-public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecyclerViewAdapter.ViewHolder> implements ConnectionListener, ChatMessageListener {
+public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecyclerViewAdapter.MessageViewHolder> implements ConnectionListener, ChatMessageListener {
 
     private final SortedList<ChatMessage> buffer;
 
@@ -42,16 +43,28 @@ public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecy
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_message, parent, false);
-        return new ViewHolder(view);
+    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        MessageType type = MessageType.getType(viewType);
+        View view;
+        MessageViewHolder viewHolder = null;
+        switch (type) {
+            case ChatMessage:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.fragment_message, parent, false);
+                viewHolder = new ChatMessageViewHolder(view);
+                break;
+            case ConnectMessage:
+            case DisconnectMessage:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.fragment_message_system, parent, false);
+                viewHolder = new SystemMessageViewHolder(view);
+        }
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.message = buffer.get(position);
-        holder.bind();
+    public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
+        holder.bind(buffer.get(position));
     }
 
     @Override
@@ -66,12 +79,12 @@ public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecy
 
     @Override
     public void deviceConnected(String username, long timestamp, String userID) {
-        buffer.add(new ChatMessage("connected", username, timestamp, userID));
+        buffer.add(new ChatMessage("connected", username, timestamp, userID, MessageType.ConnectMessage));
     }
 
     @Override
     public void deviceLost(String username, long timestamp, String userID) {
-        buffer.add(new ChatMessage("disconnected", username, timestamp, userID));
+        buffer.add(new ChatMessage("disconnected", username, timestamp, userID, MessageType.DisconnectMessage));
     }
 
     @Override
@@ -79,26 +92,62 @@ public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecy
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemViewType(int position) {
+        // Just as an example, return 0 or 2 depending on position
+        // Note that unlike in ListView adapters, types don't have to be contiguous
+
+        return buffer.get(position).getType().getValue();
+    }
+
+    abstract class MessageViewHolder extends RecyclerView.ViewHolder {
+
         final View containerView;
+
+        MessageViewHolder(View itemView) {
+            super(itemView);
+            containerView = itemView;
+        }
+
+        abstract void bind(ChatMessage message);
+    }
+
+
+    public class SystemMessageViewHolder extends MessageViewHolder {
+
+        final TextView contentView;
+
+        SystemMessageViewHolder(View view) {
+            super(view);
+            contentView = view.findViewById(R.id.systemContent);
+        }
+
+        @Override
+        void bind(ChatMessage message) {
+            if (message != null) {
+                contentView.setText(message.getUsername() + "has" + message.getContent());
+            }
+        }
+    }
+
+    public class ChatMessageViewHolder extends MessageViewHolder {
         final TextView contentView;
         final TextView usernameView;
-        ChatMessage message;
 
-        ViewHolder(View view) {
+        ChatMessageViewHolder(View view) {
             super(view);
-            containerView = view;
             contentView = view.findViewById(R.id.content);
             usernameView = view.findViewById(R.id.username);
         }
 
-        void bind() {
+        void bind(ChatMessage message) {
             if (message != null) {
                 contentView.setText(message.getContent());
                 usernameView.setText(message.getUsername());
                 usernameView.setTextColor(message.getColor());
             }
         }
+
 
         @Override
         public String toString() {

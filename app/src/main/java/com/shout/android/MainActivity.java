@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.shout.android.core.BluetoothClient;
 import com.shout.android.core.ConnectionListener;
+import com.shout.android.core.MessageType;
 
 import java.util.Date;
 // This is my change
@@ -55,28 +56,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.img_shape);
 
-        myToolbar.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.setUsername) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Set Username");
-
-                final EditText input = new EditText(this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
-                builder.setView(input);
-
-
-                builder.setPositiveButton("OK", (dialog, which) -> {
-                    BluetoothClient.getInstance().setUsername(input.getText().toString());
-                    setUserInNavigation(input.getText().toString());
-                });
-
-                builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
-                builder.show();
-                return true;
-            }
-            return false;
-        });
         //Listener for navigation events
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(menuItem->  {
@@ -121,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         EditText editText = findViewById(R.id.editText);
         editText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND) {
-                ChatMessage cm = new ChatMessage(v.getText().toString(), BluetoothClient.getInstance().getUsername(), new Date().getTime(), BluetoothClient.getInstance().getUserID());
+                ChatMessage cm = new ChatMessage(v.getText().toString(), BluetoothClient.getInstance().getUsername(), new Date().getTime(), BluetoothClient.getInstance().getUserID(), MessageType.ChatMessage);
                 bluetoothClient.sendMessage(cm);
                 v.setText("");
                 return true;
@@ -163,9 +142,9 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
     }
 
     private void setUserInNavigation(String Name){
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.textUserName);
+        TextView navUsername = headerView.findViewById(R.id.textUserName);
         navUsername.setText(Name);
     }
 

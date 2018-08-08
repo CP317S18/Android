@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
 
     }
 
+
     @Override
     public void connectedDeviceCountChanged(int count) {
         if (count == 1) {

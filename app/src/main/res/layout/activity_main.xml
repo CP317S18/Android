@@ -33,10 +33,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:background="@drawable/button_white"
         android:ems="10"
         android:hint="@string/message_input_prompt"
         android:imeOptions="actionSend"
         android:inputType="textPersonName" />
+
+    <ImageButton
+        android:id="@+id/buttonSend"
+        android:padding="10dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignTop="@id/editText"
+        android:layout_alignBottom="@id/editText"
+        android:layout_alignRight="@id/editText"
+        android:scaleType="fitXY"
+        android:background="@color/colorWhite"
+        android:src="@drawable/button_send"/>
 
     <fragment
         android:id="@+id/fragment"

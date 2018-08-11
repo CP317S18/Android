@@ -31,4 +31,10 @@
     <string name="person_shouting_template_nearby">People shouting nearby</string>
     <string name="chat_enter">Enter Chat</string>
 
+    <!--Bug report strings -->
+    <string name="bug_report_header">Report Bugs</string>
+    <string name="bug_report_field">Please describe your problem: </string>
+    <string name="bug_report_button">Send</string>
+
+
 </resources>

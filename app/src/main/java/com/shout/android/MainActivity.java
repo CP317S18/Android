@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
                 case R.id.nav_notification:
                     break;
                 case R.id.nav_bugs:
+                    setContentView(R.layout.bug_report);
                     break;
                 case R.id.nav_about:
                     break;

@@ -70,10 +70,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme"
+        app:itemTextColor="@drawable/drawer_item"
+        app:itemIconTint="@android:color/black"
         app:menu="@menu/drawer_view"
-        app:itemTextColor="@color/colorPrimary"
-        app:itemTextAppearance="@style/AppTheme"
         app:headerLayout="@layout/header_layout"/>
 
 </android.support.v4.widget.DrawerLayout>

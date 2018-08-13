@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#007AFF</color>
+    <color name="colorPrimaryDark">#006ADE</color>
+    <color name="colorAccent">#FF2D55</color>
+    <color name="colorText">#F2F2F2</color>
+    <color name="colorScrollBackground">#C4C4C4</color>
+    <color name="colorScrollBar">#8D8D8D</color>
+    <color name="colorChatStatusBarBackground">#C8C7CC</color>
+    <color name="colorSettingsBackground">#f6f6f6</color>
+    <color name="colorChatInterfaceBackground">#FFFFFF</color>
 </resources>

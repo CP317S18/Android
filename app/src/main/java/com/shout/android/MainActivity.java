@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
                     builder.show();
                     break;
                 case R.id.nav_notification:
+                    setContentView(R.layout.activity_notification);
                     break;
                 case R.id.nav_bugs:
                     setContentView(R.layout.bug_report);

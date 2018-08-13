@@ -36,5 +36,14 @@
     <string name="bug_report_field">Please describe your problem: </string>
     <string name="bug_report_button">Send</string>
 
+    <!--Strings related to notification settings -->
+    <string name="title_activity_notification">NotificationActivity</string>
+    <string name="title_notification_page">Notifications</string>
+    <string name="header_notification_page">Message Notifications</string>
+    <string name="switch_show_notifications">Show Notifications</string>
+    <string name="switch_sound">Message Sound</string>
+    <string name="switch_vibrate">Vibrate</string>
+    <string name="footer_notification_page">Reset Notification Settings</string>
+
 
 </resources>

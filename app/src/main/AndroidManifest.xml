@@ -34,6 +34,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".NotificationActivity"
+            android:label="@string/title_activity_notification"
+            android:theme="@style/AppTheme"></activity>
+
         <meta-data
             android:name="com.bridgefy.sdk.API_KEY"
             android:value="ec174e51-a4ab-4e01-9908-fe53b2833622" />

@@ -62,7 +62,7 @@
 
         <meta-data
             android:name="com.bridgefy.sdk.API_KEY"
-            android:value="ec174e51-a4ab-4e01-9908-fe53b2833622" />
+            android:value="268392a3-cfc9-4e6a-9bb4-9fd5a03d32ad" />
 
         <activity android:name=".OpeningScreen" />
     </application>

@@ -86,7 +86,7 @@ We use your data to provide and improve the Service. By using the Service, you a
         android:fontFamily="sans-serif"/>
     <TextView
         android:id="@+id/terms3"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/terms2"
@@ -111,7 +111,7 @@ We use your data to provide and improve the Service. By using the Service, you a
         android:fontFamily="sans-serif"/>
     <TextView
         android:id="@+id/terms5"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/terms4"

@@ -49,7 +49,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="**Insert Information on Sources"
+        android:text="Icon made by https://smashicons.com/\n
+Icon made by Gregor Cresnar https://www.flaticon.com/authors/gregor-cresnar\n"
+        android:autoLink="web"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="30dp"

@@ -2,7 +2,10 @@ package com.shout.android.core;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Notification;
 import android.content.Context;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
@@ -34,6 +37,11 @@ public class BluetoothClient {
     private HashMap<String, Device> deviceMap;
     private String username = Build.MODEL;
     private String userID = "";
+
+    public int getDevicesConnected() {
+        return devicesConnected + 1;
+    }
+
     private int devicesConnected = 0;
     private boolean isConnected = false;
     private boolean isStarted = false;
@@ -90,10 +98,8 @@ public class BluetoothClient {
         Bridgefy.initialize(context, new RegistrationListener() {
             @Override
             public void onRegistrationSuccessful(BridgefyClient bridgefyClient) {
-
-                startScanning(activity);
                 userID = bridgefyClient.getUserUuid();
-
+                startScanning(activity);
             }
 
             @Override
@@ -153,6 +159,29 @@ public class BluetoothClient {
     }
 
 
+    private Notification createNotification(Activity activity, ChatMessage chatMessage) {
+        Context c = activity.getApplicationContext();
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(activity.getApplicationContext(), "com.shout.android.notifications")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Message from " + chatMessage.getUsername())
+                .setContentText(chatMessage.getContent())
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+        mBuilder.setOnlyAlertOnce(true);
+        if (c.getSharedPreferences(c.getString(R.string.pref_file_key), Context.MODE_PRIVATE)
+                .getBoolean(c.getString(R.string.pref_file_vibrate), true)) {
+            mBuilder.setVibrate(new long[]{500, 100, 500});
+        }
+        if (c.getSharedPreferences(c.getString(R.string.pref_file_key), Context.MODE_PRIVATE)
+                .getBoolean(c.getString(R.string.pref_file_key_message_sound), true)) {
+            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            mBuilder.setSound(alarmSound);
+        }
+        return mBuilder.build();
+    }
+
+
     /**
      * Should only be called if starting failed due to permissions needing to be requested
      *
@@ -170,19 +199,13 @@ public class BluetoothClient {
                     case ChatMessage:
                         ChatMessage chatMessage = new ChatMessage(message, type);
                         chatMessageListeners.forEach(listener -> listener.onChatMessageReceived(chatMessage));
-                        if (foregroundBackgroundListener.isBackground()) {
-                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(activity.getApplicationContext(), "com.shout.android.notifications")
-                                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                                    .setContentTitle("Message from " + chatMessage.getUsername())
-                                    .setContentText(chatMessage.getContent())
-                                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                        Context c = activity.getApplicationContext();
+                        boolean show = c.getSharedPreferences(c.getString(R.string.pref_file_key), Context.MODE_PRIVATE)
+                                .getBoolean(c.getString(R.string.pref_file_key_show_notifications), true);
 
-                                    .setPriority(NotificationCompat.PRIORITY_HIGH);
-
+                        if (show && foregroundBackgroundListener.isBackground()) {
                             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activity.getApplicationContext());
-
-                            notificationManager.notify((int) new Date().getTime(), mBuilder.build());
+                            notificationManager.notify((int) new Date().getTime(), createNotification(activity, chatMessage));
                         }
                         break;
                     case ConnectMessage:
@@ -199,6 +222,7 @@ public class BluetoothClient {
             @Override
             public void onStarted() {
                 isStarted = true;
+                Log.e("testing", "started");
             }
 
             @Override

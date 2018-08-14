@@ -22,28 +22,32 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize" />
-
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".NotificationActivity"
             android:label="@string/title_activity_notification"
-            android:theme="@style/AppTheme"></activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="com.bridgefy.sdk.API_KEY"
             android:value="ec174e51-a4ab-4e01-9908-fe53b2833622" />
 
         <activity android:name=".OpeningScreen" />
+
+        <service
+            android:name=".core.BluetoothService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>

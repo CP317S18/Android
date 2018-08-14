@@ -3,6 +3,7 @@ package com.shout.android;
 import android.app.AlertDialog;
 import android.arch.lifecycle.ProcessLifecycleOwner;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.img_shape);
-
         //Listener for navigation events
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(menuItem->  {
@@ -81,10 +81,11 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
                     builder.show();
                     break;
                 case R.id.nav_notification:
-                    setContentView(R.layout.activity_notification);
+                    Intent intent = new Intent(this, NotificationActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.nav_bugs:
-                    setContentView(R.layout.bug_report);
+                    //setContentView(R.layout.bug_report);
                     break;
                 case R.id.nav_about:
                     break;
@@ -96,9 +97,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
 
             return true;
         });
-
-
-        bluetoothClient.initialize(this,MainActivity.this);
+        //bluetoothClient.initialize(this,MainActivity.this);
         EditText editText = findViewById(R.id.editText);
         editText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND) {
@@ -110,13 +109,20 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
             return false;
         });
         numPeopleShouting = findViewById(R.id.numPeopleShouting);
+
+        int count = bluetoothClient.getDevicesConnected();
+        if (count == 1) {
+            numPeopleShouting.setText(getString(R.string.person_shouting_template));
+        } else {
+            numPeopleShouting.setText(getString(R.string.people_shouting_template, count));
+        }
         initUsername();
     }
 
     private void initUsername() {
 
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(LoginActivity.USERNAME_ID_STRING);
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_key), MODE_PRIVATE);
+        String message = prefs.getString(getString(R.string.pref_file_username), null);
         if (message != null) {
             BluetoothClient.getInstance().setUsername(message);
             BluetoothClient.getInstance().connect();

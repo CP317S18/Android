@@ -20,8 +20,9 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/notificationBackBtn"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="32dp"
                     android:layout_height="wrap_content"
@@ -63,8 +64,9 @@
             app:layout_constraintHorizontal_bias="0.22"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <Switch
-            android:id="@+id/switchNotifications"
+            android:id="@+id/showNotificationsSwitch"
             android:layout_width="0dp"
             android:layout_height="24dp"
             android:layout_marginEnd="64dp"
@@ -75,8 +77,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
+
         <Switch
-            android:id="@+id/switchNotifications4"
+            android:id="@+id/messageSoundSwitch"
             android:layout_width="0dp"
             android:layout_height="24dp"
             android:layout_marginEnd="64dp"
@@ -87,9 +90,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/switchNotifications" />
+            app:layout_constraintTop_toBottomOf="@+id/showNotificationsSwitch" />
         <Switch
-            android:id="@+id/switchNotifications2"
+            android:id="@+id/vibrateSwitch"
             android:layout_width="0dp"
             android:layout_height="24dp"
             android:layout_marginEnd="64dp"
@@ -100,7 +103,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/switchNotifications4" />
+            app:layout_constraintTop_toBottomOf="@+id/messageSoundSwitch" />
         <TextView
             android:id="@+id/resetNotifications"
             android:layout_width="0dp"
@@ -110,8 +113,8 @@
             android:text="@string/footer_notification_page"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/switchNotifications2"
-            app:layout_constraintTop_toBottomOf="@+id/switchNotifications2" />
+            app:layout_constraintStart_toStartOf="@+id/vibrateSwitch"
+            app:layout_constraintTop_toBottomOf="@+id/vibrateSwitch" />
     </android.support.constraint.ConstraintLayout>
     <!-- android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

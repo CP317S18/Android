@@ -125,7 +125,7 @@ public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecy
         @Override
         void bind(ChatMessage message) {
             if (message != null) {
-                contentView.setText(message.getUsername() + "has" + message.getContent());
+                contentView.setText(message.getUsername() + " has " + message.getContent());
             }
         }
     }

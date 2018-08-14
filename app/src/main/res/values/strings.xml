@@ -3,6 +3,11 @@
     <string name="message_input_prompt">Enter Message</string>
     <string name="message_line_separator">:</string>
     <string name="title_activity_login">Shout!</string>
+    <string name="pref_file_key">com.shout.android.preferences</string>
+    <string name="pref_file_key_show_notifications">com.shout.android.preferences.showNotifications</string>
+    <string name="pref_file_key_message_sound">com.shout.android.preferences.messageSound</string>
+    <string name="pref_file_vibrate">com.shout.android.preferences.vibrate</string>
+    <string name="pref_file_username">com.shout.android.preferences.username</string>
 
     <!-- Strings on opening screen -->
     <string name="opening_text">Chat Anonymously With People Nearby</string>
@@ -43,7 +48,9 @@
     <string name="switch_show_notifications">Show Notifications</string>
     <string name="switch_sound">Message Sound</string>
     <string name="switch_vibrate">Vibrate</string>
-    <string name="footer_notification_page">Reset Notification Settings</string>
+    <string name="footer_notification_page">
+        <u>Reset Notification Settings</u>
+    </string>
 
 
 </resources>

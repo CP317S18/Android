@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
             BluetoothClient.getInstance();
     private TextView numPeopleShouting;
     private DrawerLayout mDrawerLayout;
+    private Intent intent;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,13 +82,18 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
                     builder.show();
                     break;
                 case R.id.nav_notification:
-                    Intent intent = new Intent(this, NotificationActivity.class);
-                    startActivity(intent);
+                    intent = new Intent(this, NotificationActivity.class);
+                    startActivityForResult(intent, 0);
                     break;
                 case R.id.nav_bugs:
-                    //setContentView(R.layout.bug_report);
+                    intent = new Intent(this, BugsActivity.class);
+                    //startActivityForResult(intent, 0);
+                    startActivity(intent);
                     break;
                 case R.id.nav_about:
+                    intent = new Intent(this, SettingsAboutActivity.class);
+                    //startActivityForResult(intent, 0);
+                    startActivity(intent);
                     break;
                 default:
                     return false;
@@ -202,5 +208,10 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         } else {
             numPeopleShouting.setText(getString(R.string.people_shouting_template, count));
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

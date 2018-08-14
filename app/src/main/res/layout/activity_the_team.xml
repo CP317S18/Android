@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="0dp"
+            android:textAlignment="center"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageButton
+                    android:id="@+id/teamBack"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_chevron_left_black_36dp" />
+                <TextView
+                    android:id="@+id/settingsNotificationHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="The Team"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <TextView
+        android:id="@+id/informationOnTheTeam"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="Authored By:"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="30dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif"/>
+    <TextView
+        android:id="@+id/authoredBy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="53dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="30dp"
+        android:text="Alex Keats, Adam Benwood, Andrew Badali,\n
+Benjamin Segall, Christian Schaefer, Cristian Dragan,\n
+Delina Ghebrekristos, Duncan Wilson, Emily Hryb,\n
+Farhan Kanjiyani, Greg Murray, Harry Sivashankaran,\n
+Jared Robinson, Jayanth Koroth, Jessica Ngo,\n
+Malin Pho, Michael Solski, Michelle Loo, Navreet Atwal, \n
+Pranav Patel, Ranusha, de Silva, Rumsha Rafi,\n
+Samani Puri, Tiffany Chan, Yannick Lee, Zakaria Hassan\n"
+        android:textSize="14sp" />
+</RelativeLayout>

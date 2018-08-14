@@ -14,9 +14,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@raw/home_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@raw/home_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -37,17 +37,34 @@
             android:label="@string/title_activity_notification"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SettingsAboutActivity"
+            android:label="SettingsAboutActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".TheTeamActivity"
+            android:parentActivityName=".SettingsAboutActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".TermsOfServicesActivity"
+            android:parentActivityName=".SettingsAboutActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SourcesActivity"
+            android:parentActivityName=".SettingsAboutActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".BugsActivity"
+            android:label="BugsActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="com.bridgefy.sdk.API_KEY"
             android:value="ec174e51-a4ab-4e01-9908-fe53b2833622" />
 
         <activity android:name=".OpeningScreen" />
-
-        <service
-            android:name=".core.BluetoothService"
-            android:enabled="true"
-            android:exported="false"></service>
     </application>
 
 </manifest>

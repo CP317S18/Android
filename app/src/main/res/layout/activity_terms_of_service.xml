@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/terms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Terms of Service"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:background="#007AFF"
+        android:textColor="#FFF"/>
+
+    <TextView
+        android:id="@+id/informationOnTerms"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="Privacy Policy"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textStyle="bold"
+        android:textSize="18sp"
+
+        android:fontFamily="sans-serif"/>
+    <TextView
+        android:id="@+id/terms1"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text='Effective date: July 30, 2018
+
+
+Shout ("us", "we", or "our") operates the Shout mobile application (the "Service").
+
+This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
+
+We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms and Conditions.
+'
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textSize="12sp"
+        android:paddingTop="40dp"
+        android:fontFamily="sans-serif"/>
+
+    <TextView
+        android:id="@+id/terms2"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="Information Collection And Use"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingTop="270dp"
+        android:fontFamily="sans-serif"/>
+
+    <TextView
+        android:id="@+id/terms3"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="We collect several different types of information for various purposes to provide and improve our Service to you."
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textSize="12sp"
+        android:paddingTop="310dp"
+        android:fontFamily="sans-serif"/>
+
+    <TextView
+        android:id="@+id/terms4"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="Personal Data"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textSize="14sp"
+        android:paddingTop="350dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"/>
+
+    <TextView
+    android:id="@+id/terms5"
+    android:layout_marginTop="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:text="While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you ('Personal Data'). Personally identifiable information may include, but is not limited to:
+First name and last name
+Cookies and Usage Data
+"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:textSize="12sp"
+    android:paddingTop="370dp"
+
+    android:fontFamily="sans-serif"/>
+
+</RelativeLayout>

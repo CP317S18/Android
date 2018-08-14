@@ -23,6 +23,18 @@
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize" />
 
+        <activity android:name=".SettingsAboutActivity"
+            />
+
+        <activity android:name=".TheTeamActivity"
+            />
+
+        <activity android:name=".TermsOfServicesActivity"
+            />
+
+        <activity android:name=".SourcesActivity"
+            />
+
         <meta-data
             android:name="com.bridgefy.sdk.API_KEY"
             android:value="ec174e51-a4ab-4e01-9908-fe53b2833622" />

@@ -3,6 +3,7 @@ package com.shout.android;
 import android.app.AlertDialog;
 import android.arch.lifecycle.ProcessLifecycleOwner;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.shout.android.core.BluetoothClient;
 import com.shout.android.core.ConnectionListener;
+import com.shout.android.core.MessageType;
 
 import java.util.Date;
 // This is my change
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
             BluetoothClient.getInstance();
     private TextView numPeopleShouting;
     private DrawerLayout mDrawerLayout;
+    private Intent intent;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,29 +57,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.img_shape);
-
-        myToolbar.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.setUsername) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Set Username");
-
-                final EditText input = new EditText(this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
-                builder.setView(input);
-
-
-                builder.setPositiveButton("OK", (dialog, which) -> {
-                    BluetoothClient.getInstance().setUsername(input.getText().toString());
-                    setUserInNavigation(input.getText().toString());
-                });
-
-                builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
-                builder.show();
-                return true;
-            }
-            return false;
-        });
         //Listener for navigation events
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(menuItem->  {
@@ -102,10 +82,18 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
                     builder.show();
                     break;
                 case R.id.nav_notification:
+                    intent = new Intent(this, NotificationActivity.class);
+                    startActivityForResult(intent, 0);
                     break;
                 case R.id.nav_bugs:
+                    intent = new Intent(this, BugsActivity.class);
+                    //startActivityForResult(intent, 0);
+                    startActivity(intent);
                     break;
                 case R.id.nav_about:
+                    intent = new Intent(this, SettingsAboutActivity.class);
+                    //startActivityForResult(intent, 0);
+                    startActivity(intent);
                     break;
                 default:
                     return false;
@@ -115,13 +103,11 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
 
             return true;
         });
-
-
-        bluetoothClient.initialize(this,MainActivity.this);
+        //bluetoothClient.initialize(this,MainActivity.this);
         EditText editText = findViewById(R.id.editText);
         editText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND) {
-                ChatMessage cm = new ChatMessage(v.getText().toString(), BluetoothClient.getInstance().getUsername(), new Date().getTime(), BluetoothClient.getInstance().getUserID());
+                ChatMessage cm = new ChatMessage(v.getText().toString(), BluetoothClient.getInstance().getUsername(), new Date().getTime(), BluetoothClient.getInstance().getUserID(), MessageType.ChatMessage);
                 bluetoothClient.sendMessage(cm);
                 v.setText("");
                 return true;
@@ -129,13 +115,20 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
             return false;
         });
         numPeopleShouting = findViewById(R.id.numPeopleShouting);
+
+        int count = bluetoothClient.getDevicesConnected();
+        if (count == 1) {
+            numPeopleShouting.setText(getString(R.string.person_shouting_template));
+        } else {
+            numPeopleShouting.setText(getString(R.string.people_shouting_template, count));
+        }
         initUsername();
     }
 
     private void initUsername() {
 
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(LoginActivity.USERNAME_ID_STRING);
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_key), MODE_PRIVATE);
+        String message = prefs.getString(getString(R.string.pref_file_username), null);
         if (message != null) {
             BluetoothClient.getInstance().setUsername(message);
             BluetoothClient.getInstance().connect();
@@ -163,9 +156,9 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
     }
 
     private void setUserInNavigation(String Name){
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.textUserName);
+        TextView navUsername = headerView.findViewById(R.id.textUserName);
         navUsername.setText(Name);
     }
 
@@ -215,5 +208,10 @@ public class MainActivity extends AppCompatActivity implements ConnectionListene
         } else {
             numPeopleShouting.setText(getString(R.string.people_shouting_template, count));
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

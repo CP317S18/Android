@@ -14,25 +14,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@raw/home_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@raw/home_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize" />
-
         <activity
             android:name=".LoginActivity"
-            android:configChanges="orientation|screenSize" />
-
-        <meta-data
-            android:name="com.bridgefy.sdk.API_KEY"
-            android:value="ec174e51-a4ab-4e01-9908-fe53b2833622" />
-
-        <activity
-            android:name=".OpeningScreen"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +32,39 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NotificationActivity"
+            android:label="@string/title_activity_notification"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SettingsAboutActivity"
+            android:label="SettingsAboutActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".TheTeamActivity"
+            android:parentActivityName=".SettingsAboutActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".TermsOfServicesActivity"
+            android:parentActivityName=".SettingsAboutActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SourcesActivity"
+            android:parentActivityName=".SettingsAboutActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".BugsActivity"
+            android:label="BugsActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
+
+        <meta-data
+            android:name="com.bridgefy.sdk.API_KEY"
+            android:value="268392a3-cfc9-4e6a-9bb4-9fd5a03d32ad" />
+
+        <activity android:name=".OpeningScreen" />
     </application>
 
 </manifest>

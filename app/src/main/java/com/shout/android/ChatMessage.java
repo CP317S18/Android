@@ -15,12 +15,14 @@ public class ChatMessage {
     private final String username;
     private final long timestamp;
     private final String userID;
+    private final MessageType type;
 
-    ChatMessage(String content, String username, long timestamp, String userID) {
+    ChatMessage(String content, String username, long timestamp, String userID, MessageType type) {
         this.content = content;
         this.username = username;
         this.timestamp = timestamp;
         this.userID = userID;
+        this.type = type;
     }
 
     /**
@@ -29,11 +31,12 @@ public class ChatMessage {
      *
      * @param message the raw message received from the Bridgefy API
      */
-    public ChatMessage(Message message) {
+    public ChatMessage(Message message, MessageType type) {
         this.content = (String) message.getContent().get("content");
         this.username = (String) message.getContent().get("username");
         this.timestamp = message.getDateSent();
         this.userID = message.getSenderId();
+        this.type = type;
     }
 
 
@@ -64,4 +67,7 @@ public class ChatMessage {
         return ColorManager.getInstance().getColor(userID);
     }
 
+    public MessageType getType() {
+        return type;
+    }
 }

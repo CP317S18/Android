@@ -33,6 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:background="@drawable/button_white"
         android:ems="10"
         android:hint="@string/message_input_prompt"
         android:imeOptions="actionSend"
@@ -56,6 +58,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemTextColor="@drawable/drawer_item"
+        app:itemIconTint="@android:color/black"
         app:menu="@menu/drawer_view"
         app:headerLayout="@layout/header_layout"/>
 

@@ -15,7 +15,7 @@ public enum MessageType {
         this.value = value;
     }
 
-    static MessageType getType(int value) {
+    public static MessageType getType(int value) {
         return messageTypes.get(value, null);
     }
 

@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +20,6 @@ import com.shout.android.core.BluetoothClient;
 import com.shout.android.core.ConnectionListener;
 
 public class LoginActivity extends AppCompatActivity implements ConnectionListener{
-    public static final String USERNAME_ID_STRING = "com.shout.android.USERNAME";
     public static final int START_BLUETOOTH = 99;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     TextView numPeopleShouting;
@@ -109,7 +109,9 @@ public class LoginActivity extends AppCompatActivity implements ConnectionListen
         EditText editText = findViewById(R.id.usernameInput);
         String username = editText.getText().toString();
         if (username.length() > 0) {
-            intent.putExtra(USERNAME_ID_STRING, username);
+            SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.pref_file_key), MODE_PRIVATE).edit();
+            editor.putString(getString(R.string.pref_file_username), username);
+            editor.commit();
             startActivity(intent);
         }
 
